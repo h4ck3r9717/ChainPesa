@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'transactions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+#User authentication (KYC Ready)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+MPESA_CONSUMER_KEY = "your_consumer_key"
+MPESA_CONSUMER_SECRET = "your_consumer_secret"
+MPESA_SHORTCODE = "174379"  # test PayBill
+MPESA_PASSKEY = "your_passkey_from_daraja"
+MPESA_CALLBACK_URL = "https://yourdomain.com/api/mpesa/callback/"
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
