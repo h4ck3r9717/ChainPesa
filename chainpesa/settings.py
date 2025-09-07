@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    "rest_framework_simplejwt.token_blacklist",  #  for loging out
+    "corsheaders",  # For  frontend and other team to connect with backend
+    ]
 
 # Docker and redis configuration 
 CELERY_BROKER_URL = "redis://redis:6379/0"
@@ -77,7 +79,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # (for dev only, later will be restrict to frontend domain)
 
 ROOT_URLCONF = 'chainpesa.urls'
 

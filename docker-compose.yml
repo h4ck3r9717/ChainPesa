@@ -1,7 +1,9 @@
+version: "3.9"
+
 services:
   web:
     build: .
-    command: gunicorn chainpesa.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
@@ -16,31 +18,10 @@ services:
       POSTGRES_DB: chainpesa
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   redis:
     image: redis:6
     ports:
       - "6379:6379"
-
-  celery:
-    build: .
-    command: celery -A chainpesa worker -l info
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
-
-  celery-beat:
-    build: .
-    command: celery -A chainpesa beat -l info
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
-
-volumes:
-  postgres_data:
